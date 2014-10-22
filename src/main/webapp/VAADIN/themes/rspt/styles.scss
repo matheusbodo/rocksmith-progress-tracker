@@ -1,0 +1,13 @@
+@import "variables";
+@import "valotest";
+
+.rspt {
+   @include valotest;
+   
+   .login-box {
+		background-color: #c8dfdf;
+		border-width: 5px;
+		border-style: solid;
+		border-color: $v-focus-color;
+	}
+}
