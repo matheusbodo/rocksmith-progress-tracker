@@ -2,3 +2,4 @@ target/
 .classpath
 .settings
 .project
+src/main/public/VAADIN/widgetsets/br.com.rspt.RSPTWidgetSet
