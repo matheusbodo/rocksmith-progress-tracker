@@ -6,10 +6,12 @@ import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.vaadin.googleanalytics.tracking.GoogleAnalyticsTracker;
 import org.vaadin.spring.VaadinUI;
 import org.vaadin.spring.navigator.SpringViewProvider;
 
 import br.com.matheusbodo.rspt.layout.RSPTLayout;
+import br.com.matheusbodo.rspt.security.RSPTViewChangeListener;
 
 import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
@@ -58,11 +60,17 @@ public class RSPTUI extends UI {
 	private LinkedHashMap<String, String> menuItems = new LinkedHashMap<String, String>();
 	private CssLayout menu = new CssLayout();
     private CssLayout menuItemsLayout = new CssLayout();
+    
+    private GoogleAnalyticsTracker tracker;
+	
 	
 	@Override
     protected void init(VaadinRequest vaadinRequest) {
 		getPage().getJavaScript().execute("document.head.innerHTML += '<meta name=\"viewport\" content=\"initial-scale = 1.0,maximum-scale = 1.0\">'");
 		Responsive.makeResponsive(this);
+		tracker = new GoogleAnalyticsTracker("UA-56035202-1");
+		tracker.extend(UI.getCurrent());
+		((RSPTViewChangeListener) viewChangeListener).setTracker(tracker);
         displayApplication();
     }
 

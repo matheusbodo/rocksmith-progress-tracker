@@ -1,7 +1,5 @@
 package br.com.matheusbodo.rspt.security;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.stereotype.Component;
 import org.vaadin.googleanalytics.tracking.GoogleAnalyticsTracker;
 
@@ -9,7 +7,6 @@ import br.com.matheusbodo.rspt.entity.enums.Role;
 import br.com.matheusbodo.rspt.util.SecurityUtil;
 
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.ui.UI;
 
 @Component(value="rsptViewChangeListener")
 public class RSPTViewChangeListener implements ViewChangeListener {
@@ -18,27 +15,21 @@ public class RSPTViewChangeListener implements ViewChangeListener {
 	
 	private GoogleAnalyticsTracker tracker;
 	
-	@PostConstruct
-	public void init() {
-		tracker = new GoogleAnalyticsTracker("UA-56035202-1");
-		tracker.extend(UI.getCurrent());
-	}
-	
 	@Override
 	public boolean beforeViewChange(ViewChangeEvent event) {
 		if (event.getNewView() instanceof SecuredView) {
 			SecuredView securedView = (SecuredView) event.getNewView();
 			for (Role role : securedView.getAuthorizedRoles()) {
 				if (SecurityUtil.hasRole(role)) {
-					tracker.trackPageview(event.getViewName());
+					trackPageview(event.getViewName());
 					return true;
 				}
 			}
 			event.getNavigator().navigateTo("acessoNegado");
-			tracker.trackPageview("acessoNegado");
+			trackPageview("acessoNegado");
 			return false;
 		} else {
-			tracker.trackPageview(event.getViewName());
+			trackPageview(event.getViewName());
 			return true;
 		}
 	}
@@ -46,6 +37,16 @@ public class RSPTViewChangeListener implements ViewChangeListener {
 	@Override
 	public void afterViewChange(ViewChangeEvent event) {
 
+	}
+	
+	public void setTracker(GoogleAnalyticsTracker tracker) {
+		this.tracker = tracker;
+	}
+	
+	private void trackPageview(String pageId) {
+		if (tracker != null) {
+			tracker.trackPageview(pageId);
+		}
 	}
 	
 }
