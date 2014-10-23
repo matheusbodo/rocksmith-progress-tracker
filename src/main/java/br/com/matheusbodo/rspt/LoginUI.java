@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.vaadin.googleanalytics.tracking.GoogleAnalyticsTracker;
 import org.vaadin.spring.VaadinUI;
 
 import com.vaadin.annotations.Theme;
@@ -44,6 +45,8 @@ public class LoginUI extends UI implements ClickListener {
     private PasswordField password;
 
     private Button btnLogin;
+    
+    GoogleAnalyticsTracker tracker;
 
     @PostConstruct
     public void initLayout() {
@@ -67,7 +70,9 @@ public class LoginUI extends UI implements ClickListener {
         
         layout.addComponent(loginLayout);
         layout.setComponentAlignment(loginLayout, Alignment.MIDDLE_CENTER);
-
+        
+        tracker = new GoogleAnalyticsTracker("UA-56035202-1");
+        tracker.trackPageview("login");
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.vaadin.spring.VaadinUI;
 import org.vaadin.spring.navigator.SpringViewProvider;
@@ -47,6 +48,7 @@ public class RSPTUI extends UI {
     private SpringViewProvider viewProvider;
 	
 	@Autowired
+	@Qualifier(value="rsptViewChangeListener")
 	private ViewChangeListener viewChangeListener;
 	
 	private Navigator navigator;
