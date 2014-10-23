@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.matheusbodo.rspt.entity.User;
 import br.com.matheusbodo.rspt.entity.UserRole;
+import br.com.matheusbodo.rspt.entity.enums.Role;
 import br.com.matheusbodo.rspt.repository.UserRepository;
 
 @Service
@@ -32,6 +33,9 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService{
 		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		for (UserRole userRole : user.getRoles()) {
 			authorities.add(new SimpleGrantedAuthority(userRole.getRole().name()));
+		}
+		if (authorities.isEmpty()) {
+			authorities.add(new SimpleGrantedAuthority(Role.USER.name()));
 		}
 		return new org.springframework.security.core.userdetails.User(username, user.getPassword(), authorities);
 	}

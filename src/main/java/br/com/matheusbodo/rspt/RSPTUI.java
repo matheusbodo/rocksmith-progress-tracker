@@ -29,6 +29,7 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -93,7 +94,7 @@ public class RSPTUI extends UI {
 
         @Override
         public void enter(ViewChangeListener.ViewChangeEvent event) {
-            message.setValue(String.format("Erro ao tentar abrir view: %s", event.getViewName()));
+            message.setValue(String.format("Error opening view: %s", event.getViewName()));
         }
     }
 	
@@ -142,7 +143,14 @@ public class RSPTUI extends UI {
         settingsItem.addItem("Editar perfil", null);
         settingsItem.addItem("Preferências", null);
         settingsItem.addSeparator();
-        settingsItem.addItem("Sair", null);
+        settingsItem.addItem("Sair", new Command() {
+			private static final long serialVersionUID = 3618553404417268850L;
+			@Override
+			public void menuSelected(MenuItem selectedItem) {
+				SecurityContextHolder.getContext().setAuthentication(null);
+				getPage().setLocation("/");
+			}
+		});
         menu.addComponent(settings);
 
         menuItemsLayout.setPrimaryStyleName("valo-menuitems");

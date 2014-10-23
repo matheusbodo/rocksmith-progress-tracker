@@ -2,9 +2,11 @@ package br.com.matheusbodo.rspt;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.vaadin.spring.VaadinUI;
 
@@ -26,6 +28,9 @@ import com.vaadin.ui.VerticalLayout;
 @Title("Login UI")
 public class LoginUI extends UI implements ClickListener {
 
+	@Autowired
+	@Qualifier(value="authenticationManager")
+	private AuthenticationManager authenticationManager;
 
     private static final long serialVersionUID = -8667709390052949671L;
 
@@ -55,7 +60,7 @@ public class LoginUI extends UI implements ClickListener {
         loginLayout.addComponent(username);
         loginLayout.addComponent(password);
         loginLayout.addComponent(btnLogin);
-
+        
         layout.addComponent(loginLayout);
         layout.setComponentAlignment(loginLayout, Alignment.MIDDLE_CENTER);
 
@@ -69,17 +74,14 @@ public class LoginUI extends UI implements ClickListener {
 
     @Override
     public void buttonClick(ClickEvent event) {
-
-        try {
-        	Authentication authentication = new UsernamePasswordAuthenticationToken(username.getValue(), password.getValue());
+    	try {
+	    	Authentication authentication = new UsernamePasswordAuthenticationToken(username.getValue(), password.getValue());
+	    	authentication = authenticationManager.authenticate(authentication);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
-            getPage().setLocation("/");
-        } catch (AuthenticationException  e) {
-            Notification.show("Login failed.", e.getMessage(), Type.ERROR_MESSAGE);
-        }
-
-
-
+			getPage().setLocation("/");
+    	} catch (Exception e) {
+			Notification.show("Login failed.", Type.ERROR_MESSAGE);
+		}
     }
 
 }
