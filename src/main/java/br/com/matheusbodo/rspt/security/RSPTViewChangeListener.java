@@ -9,6 +9,7 @@ import br.com.matheusbodo.rspt.entity.enums.Role;
 import br.com.matheusbodo.rspt.util.SecurityUtil;
 
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.ui.UI;
 
 @Component(value="rsptViewChangeListener")
 public class RSPTViewChangeListener implements ViewChangeListener {
@@ -20,6 +21,7 @@ public class RSPTViewChangeListener implements ViewChangeListener {
 	@PostConstruct
 	public void init() {
 		tracker = new GoogleAnalyticsTracker("UA-56035202-1");
+		tracker.extend(UI.getCurrent());
 	}
 	
 	@Override
