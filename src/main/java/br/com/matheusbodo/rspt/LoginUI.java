@@ -72,7 +72,7 @@ public class LoginUI extends UI implements ClickListener {
         layout.setComponentAlignment(loginLayout, Alignment.MIDDLE_CENTER);
         
         tracker = new GoogleAnalyticsTracker("UA-56035202-1");
-        tracker.extend(UI.getCurrent());
+        tracker.extend(this);
         tracker.trackPageview("login");
     }
 

@@ -69,7 +69,7 @@ public class RSPTUI extends UI {
 		getPage().getJavaScript().execute("document.head.innerHTML += '<meta name=\"viewport\" content=\"initial-scale = 1.0,maximum-scale = 1.0\">'");
 		Responsive.makeResponsive(this);
 		tracker = new GoogleAnalyticsTracker("UA-56035202-1");
-		tracker.extend(UI.getCurrent());
+		tracker.extend(this);
 		((RSPTViewChangeListener) viewChangeListener).setTracker(tracker);
         displayApplication();
     }
