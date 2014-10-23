@@ -86,6 +86,7 @@ public class PracticeGuitarcadeView extends VerticalLayout implements SecuredVie
 	private BeanFieldGroup<GuitarcadePracticeLog> bindFields() {
 		final BeanFieldGroup<GuitarcadePracticeLog> binder = new BeanFieldGroup<GuitarcadePracticeLog>(GuitarcadePracticeLog.class);
 		binder.bind(layout.getComboGames(), "game");
+		binder.bind(layout.getComboGameLevels(), "gameLevel");
 		binder.bind(layout.getFieldMinutes(), "minutes");
 		binder.bind(layout.getFieldScore(), "score");
 		return binder;

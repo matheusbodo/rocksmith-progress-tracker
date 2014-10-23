@@ -15,6 +15,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import br.com.matheusbodo.rspt.entity.enums.GuitarcadeGame;
+import br.com.matheusbodo.rspt.entity.enums.GuitarcadeGameLevel;
 
 @Getter
 @Setter
@@ -35,4 +36,9 @@ public class GuitarcadePracticeLog extends PracticeLog {
 	@Enumerated(EnumType.STRING)
 	@PropertyId(value="game")
 	private GuitarcadeGame game;
+	
+	@Column(name="game_level", length=100)
+	@Enumerated(EnumType.STRING)
+	@PropertyId(value="gameLevel")
+	private GuitarcadeGameLevel gameLevel;
 }
