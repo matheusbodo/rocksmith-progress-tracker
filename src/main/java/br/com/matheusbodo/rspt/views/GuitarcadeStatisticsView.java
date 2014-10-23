@@ -1,7 +1,6 @@
 package br.com.matheusbodo.rspt.views;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.dussan.vaadin.dcharts.data.DataSeries;
@@ -68,7 +67,7 @@ public class GuitarcadeStatisticsView extends VerticalLayout implements SecuredV
 			Object game = summary[0];
 			layout.getTbSummary().getItem(game).getItemProperty("minutesPlayed").setValue((Long) summary[1]);
 			layout.getTbSummary().getItem(game).getItemProperty("highScore").setValue((Long) summary[2]);
-			layout.getTbSummary().getItem(game).getItemProperty("lastPlayed").setValue((Date) summary[3]);
+			layout.getTbSummary().getItem(game).getItemProperty("lastPlayed").setValue(((Calendar) summary[3]).getTime());
 		}
 	}
 	
