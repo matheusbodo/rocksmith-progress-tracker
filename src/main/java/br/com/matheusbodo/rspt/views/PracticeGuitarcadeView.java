@@ -59,6 +59,7 @@ public class PracticeGuitarcadeView extends VerticalLayout implements SecuredVie
 						log.setMinutes(0);
 					}
 					log.setDate(Calendar.getInstance());
+					log.setUser(userService.findLoggedUser());
 					guitarcadePracticeLogRepository.save(log);
 					Notification.show("Practice log saved.");
 					binder.setItemDataSource(new GuitarcadePracticeLog());
@@ -74,9 +75,7 @@ public class PracticeGuitarcadeView extends VerticalLayout implements SecuredVie
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
-		GuitarcadePracticeLog log = new GuitarcadePracticeLog();
-		log.setUser(userService.findLoggedUser());
-		binder.setItemDataSource(log);
+		binder.setItemDataSource(new GuitarcadePracticeLog());
 	}
 
 	@Override
