@@ -12,7 +12,7 @@ common: &default_settings
   # You must specify the license key associated with your New Relic
   # account.  This key binds your Agent's data to your account in the
   # New Relic service.
-  license_key: '0219f6a66feab991015804ff42f25fe42d78168d'
+  license_key: 'c4eaf233da7a233909cfd941738040b4b7811067'
 
   # Agent Enabled
   # Use this setting to disable the agent instead of removing it from the startup command.
@@ -27,7 +27,7 @@ common: &default_settings
   # For example, to report data to "My Application" and "My Application 2" use this:
   # app_name: My Application;My Application 2
   # This setting is required.
-  app_name: My Application
+  app_name: Rocksmith Progress Tracker
   
   # To enable high security, set this property to true. When in high
   # security mode, the agent will use SSL and obfuscated SQL. Additionally,
