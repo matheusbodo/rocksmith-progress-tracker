@@ -71,9 +71,9 @@ public class GuitarcadeStatisticsLayout extends CustomComponent {
 		
 		tbSummary.addContainerProperty("game", String.class, null);
 		tbSummary.setColumnHeader("game", "Game");
-		tbSummary.addContainerProperty("minutesPlayed", Integer.class, 0);
+		tbSummary.addContainerProperty("minutesPlayed", Long.class, 0L);
 		tbSummary.setColumnHeader("minutesPlayed", "Minutes Played");
-		tbSummary.addContainerProperty("highScore", Integer.class, 0);
+		tbSummary.addContainerProperty("highScore", Long.class, 0L);
 		tbSummary.setColumnHeader("highScore", "High Score");
 		tbSummary.addContainerProperty("lastPlayed", Date.class, null);
 		tbSummary.setColumnHeader("lastPlayed", "Last Played");
@@ -154,9 +154,10 @@ public class GuitarcadeStatisticsLayout extends CustomComponent {
 		// tbSummary
 		tbSummary = new Table();
 		tbSummary.setImmediate(false);
-		tbSummary.setWidth("100.0%");
+		tbSummary.setWidth("90.0%");
 		tbSummary.setHeight("-1px");
 		verticalLayout_3.addComponent(tbSummary);
+		verticalLayout_3.setComponentAlignment(tbSummary, new Alignment(20));
 		
 		return verticalLayout_3;
 	}
@@ -181,9 +182,11 @@ public class GuitarcadeStatisticsLayout extends CustomComponent {
 		// chartGamesPlayed
 		chartGamesPlayed = new DCharts();
 		chartGamesPlayed.setImmediate(true);
-		chartGamesPlayed.setWidth("100.0%");
+		chartGamesPlayed.setWidth("90.0%");
 		chartGamesPlayed.setHeight("-1px");
 		verticalLayout_2.addComponent(chartGamesPlayed);
+		verticalLayout_2.setComponentAlignment(chartGamesPlayed, new Alignment(
+				20));
 		
 		return verticalLayout_2;
 	}
