@@ -1,5 +1,6 @@
 package br.com.matheusbodo.rspt.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -19,7 +20,9 @@ import lombok.Setter;
 @EqualsAndHashCode(exclude={"roles"})
 @Entity
 @Table(name="users")
-public class User {
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 783532862260768570L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

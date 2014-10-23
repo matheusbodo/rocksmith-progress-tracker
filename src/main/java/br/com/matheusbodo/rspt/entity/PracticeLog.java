@@ -1,5 +1,6 @@
 package br.com.matheusbodo.rspt.entity;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -27,7 +28,9 @@ import lombok.Setter;
 @EqualsAndHashCode
 @MappedSuperclass
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public abstract class PracticeLog {
+public abstract class PracticeLog implements Serializable {
+
+	private static final long serialVersionUID = 1943375838137162650L;
 
 	@Id
 	@GeneratedValue

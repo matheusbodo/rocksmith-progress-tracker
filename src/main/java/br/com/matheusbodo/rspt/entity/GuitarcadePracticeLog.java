@@ -24,6 +24,8 @@ import br.com.matheusbodo.rspt.entity.enums.GuitarcadeGameLevel;
 @Table(name="guitarcade_practice_logs")
 public class GuitarcadePracticeLog extends PracticeLog {
 
+	private static final long serialVersionUID = 2906995567896993449L;
+
 	@NotNull(message="Score must be informed.")
 	@Min(value=0, message="The score must be a positive number")
 	@Max(value=999999999, message="The minutes practiced cannot be greater than 999999999")

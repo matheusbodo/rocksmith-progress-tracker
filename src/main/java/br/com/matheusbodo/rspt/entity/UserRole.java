@@ -1,5 +1,7 @@
 package br.com.matheusbodo.rspt.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,7 +23,9 @@ import br.com.matheusbodo.rspt.entity.enums.Role;
 @EqualsAndHashCode(exclude={"user"})
 @Entity
 @Table(name="user_roles")
-public class UserRole {
+public class UserRole implements Serializable {
+
+	private static final long serialVersionUID = -6393446764698733415L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

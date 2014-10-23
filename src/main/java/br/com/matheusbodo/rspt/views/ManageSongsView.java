@@ -18,7 +18,10 @@ import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.data.util.filter.Compare;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 
 @Component
 @Scope("prototype")
@@ -38,6 +41,14 @@ public class ManageSongsView  extends VerticalLayout implements SecuredView {
 	public ManageSongsView() {
 		layout = new ManageSongsLayout();
 		addComponent(layout);
+		
+		layout.getBtnNewSong().addClickListener(new ClickListener() {
+			private static final long serialVersionUID = -4094109928488038171L;
+			@Override
+			public void buttonClick(ClickEvent event) {
+				UI.getCurrent().getNavigator().navigateTo("songs/new");
+			}
+		});
 	}
 	
 	@Override
@@ -47,6 +58,8 @@ public class ManageSongsView  extends VerticalLayout implements SecuredView {
 		Compare.Equal filter = new Compare.Equal("user", userService.findLoggedUser());
 		jpaContainer.addContainerFilter(filter);
 		layout.getTbSongs().setContainerDataSource(jpaContainer);
+		layout.getTbSongs().setColumnCollapsingAllowed(true);
+		layout.getTbSongs().setColumnCollapsed("user", true);
 	}
 
 	@Override
