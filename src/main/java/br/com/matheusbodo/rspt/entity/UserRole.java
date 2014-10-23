@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,6 +20,7 @@ import br.com.matheusbodo.rspt.entity.enums.Role;
 @Setter
 @EqualsAndHashCode(exclude={"user"})
 @Entity
+@Table(name="user_roles")
 public class UserRole {
 
 	@Id

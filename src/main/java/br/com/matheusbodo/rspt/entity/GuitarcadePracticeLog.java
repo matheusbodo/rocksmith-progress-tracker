@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ import br.com.matheusbodo.rspt.entity.enums.GuitarcadeGame;
 @Setter
 @EqualsAndHashCode(callSuper=true)
 @Entity
+@Table(name="guitarcade_practice_logs")
 public class GuitarcadePracticeLog extends PracticeLog {
 
 	@NotNull(message="Score must be informed.")
