@@ -1,6 +1,7 @@
 package br.com.matheusbodo.rspt.views;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.dussan.vaadin.dcharts.data.DataSeries;
@@ -43,18 +44,32 @@ public class GuitarcadeStatisticsView extends VerticalLayout implements SecuredV
 	public GuitarcadeStatisticsView() {
 		layout = new GuitarcadeStatisticsLayout();
 		addComponent(layout);
-		
-		
 	}
 
 	@Override
 	public void enter(ViewChangeEvent event) {
+		updateSummaryTable();
 		createGamesPlayedChart();
 	}
 
 	@Override
 	public Role[] getAuthorizedRoles() {
 		return new Role[] { Role.ADMIN, Role.USER };
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void updateSummaryTable() {
+		Calendar dateFrom = Calendar.getInstance();
+		dateFrom.add(Calendar.MONTH, -1);
+		Calendar dateTo = Calendar.getInstance();
+		User user = userService.findLoggedUser();
+		List<Object[]> summaryList = guitarcadePracticeLogRepository.findSummaryByUserAndPeriod(user, dateFrom, dateTo);
+		for (Object[] summary : summaryList) {
+			Object game = summary[0];
+			layout.getTbSummary().getItem(game).getItemProperty("minutesPlayed").setValue((Long) summary[1]);
+			layout.getTbSummary().getItem(game).getItemProperty("highScore").setValue((Long) summary[2]);
+			layout.getTbSummary().getItem(game).getItemProperty("lastPlayed").setValue((Date) summary[3]);
+		}
 	}
 	
 	private void createGamesPlayedChart() {

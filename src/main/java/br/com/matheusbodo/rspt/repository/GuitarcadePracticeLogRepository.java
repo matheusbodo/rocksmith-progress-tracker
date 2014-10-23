@@ -16,4 +16,7 @@ public interface GuitarcadePracticeLogRepository extends PagingAndSortingReposit
 
 	@Query("SELECT g.game, SUM(g.minutes) from GuitarcadePracticeLog g WHERE g.user = ?1 AND g.date >= ?2 AND g.date <= ?3 GROUP BY g.game")
 	List<Object[]> findMinutesPlayedByUserAndPeriod(User user, Calendar dateFrom, Calendar dateTo);
+
+	@Query("SELECT g.game, SUM(g.minutes), MAX(g.score), MAX(g.date) from GuitarcadePracticeLog g WHERE g.user = ?1 AND g.date >= ?2 AND g.date <= ?3 GROUP BY g.game")
+	List<Object[]> findSummaryByUserAndPeriod(User user, Calendar dateFrom, Calendar dateTo);
 }
