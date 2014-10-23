@@ -5,4 +5,6 @@
     <inherits name="com.vaadin.DefaultWidgetSet" />
 
     <inherits name="org.tepi.filtertable.gwt.FilterTableWidgetset" />
+    
+    <inherits name="org.dussan.vaadin.dcharts.DchartsWidgetset" />
 </module>

@@ -106,6 +106,10 @@ public class RSPTUI extends UI {
         menuItems.put("practiceGuitarcade", "Guitarcade");
         menuItems.put("practiceScoreAttack", "Score Attack");
         menuItems.put("practiceSessionMode", "Session Mode");
+        menuItems.put("statisticsLearnSong", "Learn a Song");
+        menuItems.put("statisticsGuitarcade", "Guitarcade");
+        menuItems.put("statisticsScoreAttack", "Score Attack");
+        menuItems.put("statisticsSessionMode", "Session Mode");
 
         HorizontalLayout top = new HorizontalLayout();
         top.setWidth("100%");
@@ -166,6 +170,12 @@ public class RSPTUI extends UI {
                 menuItemsLayout.addComponent(label);
             } else if (item.getKey().equals("practiceLearnSong")) {
             	label = new Label("Practice", ContentMode.HTML);
+                label.setPrimaryStyleName("valo-menu-subtitle");
+                label.addStyleName("h4");
+                label.setSizeUndefined();
+                menuItemsLayout.addComponent(label);
+            } else if (item.getKey().equals("statisticsLearnSong")) {
+            	label = new Label("Statistics", ContentMode.HTML);
                 label.setPrimaryStyleName("valo-menu-subtitle");
                 label.addStyleName("h4");
                 label.setSizeUndefined();

@@ -10,7 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.vaadin.spring.VaadinUI;
 
+import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
+import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -24,8 +26,10 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-@VaadinUI(path="/login")
+@Theme("rspt")
 @Title("Login UI")
+@VaadinUI(path="/login")
+@Widgetset(value="br.com.rspt.RSPTWidgetSet")
 public class LoginUI extends UI implements ClickListener {
 
 	@Autowired
