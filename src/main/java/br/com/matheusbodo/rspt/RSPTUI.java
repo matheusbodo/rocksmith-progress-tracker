@@ -112,14 +112,14 @@ public class RSPTUI extends UI {
         // Add items
         menuItems.put("", "Dashboard");
         menuItems.put("manageSongs", "Songs");
-        menuItems.put("practiceLearnSong", "Learn a Song");
+//        menuItems.put("practiceLearnSong", "Learn a Song");
         menuItems.put("practiceGuitarcade", "Guitarcade");
-        menuItems.put("practiceScoreAttack", "Score Attack");
-        menuItems.put("practiceSessionMode", "Session Mode");
-        menuItems.put("statisticsLearnSong", "Learn a Song");
+//        menuItems.put("practiceScoreAttack", "Score Attack");
+//        menuItems.put("practiceSessionMode", "Session Mode");
+//        menuItems.put("statisticsLearnSong", "Learn a Song");
         menuItems.put("statisticsGuitarcade", "Guitarcade");
-        menuItems.put("statisticsScoreAttack", "Score Attack");
-        menuItems.put("statisticsSessionMode", "Session Mode");
+//        menuItems.put("statisticsScoreAttack", "Score Attack");
+//        menuItems.put("statisticsSessionMode", "Session Mode");
 
         HorizontalLayout top = new HorizontalLayout();
         top.setWidth("100%");
@@ -154,10 +154,9 @@ public class RSPTUI extends UI {
         settings.addStyleName("user-menu");
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         MenuItem settingsItem = settings.addItem(username, FontAwesome.USER, null);
-        settingsItem.addItem("Editar perfil", null);
-        settingsItem.addItem("Preferências", null);
+        settingsItem.addItem("Edit Profile", null);
         settingsItem.addSeparator();
-        settingsItem.addItem("Sair", new Command() {
+        settingsItem.addItem("Logout", new Command() {
 			private static final long serialVersionUID = 3618553404417268850L;
 			@Override
 			public void menuSelected(MenuItem selectedItem) {

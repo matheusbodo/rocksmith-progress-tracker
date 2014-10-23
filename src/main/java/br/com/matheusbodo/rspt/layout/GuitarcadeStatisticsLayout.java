@@ -150,6 +150,7 @@ public class GuitarcadeStatisticsLayout extends CustomComponent {
 		lblSummary.setHeight("-1px");
 		lblSummary.setValue("Summary");
 		verticalLayout_3.addComponent(lblSummary);
+		verticalLayout_3.setComponentAlignment(lblSummary, new Alignment(20));
 		
 		// tbSummary
 		tbSummary = new Table();
@@ -178,6 +179,8 @@ public class GuitarcadeStatisticsLayout extends CustomComponent {
 		lblGamesPlayed.setHeight("-1px");
 		lblGamesPlayed.setValue("Time Played");
 		verticalLayout_2.addComponent(lblGamesPlayed);
+		verticalLayout_2.setComponentAlignment(lblGamesPlayed,
+				new Alignment(20));
 		
 		// chartGamesPlayed
 		chartGamesPlayed = new DCharts();
