@@ -31,7 +31,7 @@ public class PersistenceJPAConfig {
 
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
-		em.setJpaProperties(additionalProperties());
+//		em.setJpaProperties(additionalProperties());
 
 		return em;
 	}
@@ -85,7 +85,7 @@ public class PersistenceJPAConfig {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
 
-	Properties additionalProperties() {
+	private Properties additionalProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("hibernate.hbm2ddl.auto", "update");
 		properties.setProperty("hibernate.show_sql", "true");
