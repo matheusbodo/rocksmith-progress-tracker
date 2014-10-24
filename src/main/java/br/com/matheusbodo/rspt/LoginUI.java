@@ -79,7 +79,7 @@ public class LoginUI extends UI implements ClickListener {
     @Override
     protected void init(VaadinRequest request) {
         setContent(layout);
-
+        getPage().setTitle("Rocksmith Progress Tracker");
     }
 
     @Override

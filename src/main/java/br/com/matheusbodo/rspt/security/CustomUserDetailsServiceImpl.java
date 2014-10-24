@@ -31,11 +31,11 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService{
 			throw new UsernameNotFoundException("User not found");
 		}
 		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+		authorities.add(new SimpleGrantedAuthority(Role.USER.name()));
 		for (UserRole userRole : user.getRoles()) {
-			authorities.add(new SimpleGrantedAuthority(userRole.getRole().name()));
-		}
-		if (authorities.isEmpty()) {
-			authorities.add(new SimpleGrantedAuthority(Role.USER.name()));
+			if (!Role.USER.equals(userRole.getRole())) {
+				authorities.add(new SimpleGrantedAuthority(userRole.getRole().name()));
+			}
 		}
 		return new org.springframework.security.core.userdetails.User(username, user.getPassword(), authorities);
 	}
