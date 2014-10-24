@@ -5,9 +5,16 @@
    @include valotest;
    
    .login-box {
-		background-color: #c8dfdf;
+		background-color: $v-app-background-color;
 		border-width: 5px;
 		border-style: solid;
 		border-color: $v-focus-color;
+		color: rgb(50, 65, 92);
+	}
+	
+	.login-background {
+		color: $v-app-background-color;
+		background-color: rgb(50, 65, 92);
+		background-image: linear-gradient(to left, rgb(39, 51, 72) 0%, rgb(50, 65, 92) 8px);
 	}
 }

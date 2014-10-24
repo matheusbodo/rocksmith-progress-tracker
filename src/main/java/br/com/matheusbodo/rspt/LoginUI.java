@@ -22,6 +22,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
@@ -52,24 +53,39 @@ public class LoginUI extends UI implements ClickListener {
     public void initLayout() {
         layout = new VerticalLayout();
         layout.setSizeFull();
+        layout.addStyleName("login-background");
+        
+        Label labelTitle = new Label();
+        labelTitle.setValue("Rocksmith Practice Track");
+        labelTitle.addStyleName(ValoTheme.LABEL_HUGE);
+        layout.addComponent(labelTitle);
+        layout.setComponentAlignment(labelTitle, Alignment.MIDDLE_CENTER);
 
         VerticalLayout loginLayout = new VerticalLayout();
-        loginLayout.setSizeUndefined();
+        loginLayout.addStyleName("login-box");
+        loginLayout.setHeightUndefined();
+        loginLayout.setWidth("300px");
         loginLayout.setSpacing(true);
-        loginLayout.addComponent(new Label("Login"));
+        loginLayout.setMargin(true);
 
         username = new TextField("Username");
+        username.setWidth("80%");
         password = new PasswordField("Password");
+        password.setWidth("80%");
 
         btnLogin = new Button("Login");
         btnLogin.addClickListener(this);
 
         loginLayout.addComponent(username);
+        loginLayout.setComponentAlignment(username, Alignment.MIDDLE_CENTER);
         loginLayout.addComponent(password);
+        loginLayout.setComponentAlignment(password, Alignment.MIDDLE_CENTER);
         loginLayout.addComponent(btnLogin);
+        loginLayout.setComponentAlignment(btnLogin, Alignment.MIDDLE_CENTER);
         
         layout.addComponent(loginLayout);
         layout.setComponentAlignment(loginLayout, Alignment.MIDDLE_CENTER);
+        layout.setExpandRatio(loginLayout, 1);
         
         tracker = new GoogleAnalyticsTracker("UA-56035202-1");
         tracker.extend(this);

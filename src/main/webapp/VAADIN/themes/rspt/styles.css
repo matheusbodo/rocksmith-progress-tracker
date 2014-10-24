@@ -13703,8 +13703,15 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .rspt .login-box {
-	background-color: #c8dfdf;
+	background-color: #e7ebf2;
 	border-width: 5px;
 	border-style: solid;
 	border-color: #3b5998;
+	color: #32415c;
+}
+
+.rspt .login-background {
+	color: #e7ebf2;
+	background-color: #32415c;
+	background-image: linear, to left, #273348 0%, #32415c 8px;
 }
