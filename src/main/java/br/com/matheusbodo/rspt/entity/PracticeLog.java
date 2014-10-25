@@ -42,9 +42,9 @@ public abstract class PracticeLog implements Serializable {
 	private User user;
 	
 	@NotNull
-	@Column(nullable=false)
+	@Column(nullable=false, name="date")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar date;
+	private Calendar practiceDate;
 	
 	@Min(value=0, message="The minutes practiced must be a positive number")
 	@Max(value=1440, message="The minutes practiced cannot be greater than 1440")

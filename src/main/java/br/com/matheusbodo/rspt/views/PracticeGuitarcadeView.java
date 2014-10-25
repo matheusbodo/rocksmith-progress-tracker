@@ -58,7 +58,7 @@ public class PracticeGuitarcadeView extends VerticalLayout implements SecuredVie
 					if (log.getMinutes() == null) {
 						log.setMinutes(0);
 					}
-					log.setDate(Calendar.getInstance());
+					log.setPracticeDate(Calendar.getInstance());
 					log.setUser(userService.findLoggedUser());
 					guitarcadePracticeLogRepository.save(log);
 					Notification.show("Practice log saved.");

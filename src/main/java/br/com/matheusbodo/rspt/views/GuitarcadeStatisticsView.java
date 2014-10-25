@@ -3,8 +3,14 @@ package br.com.matheusbodo.rspt.views;
 import java.util.Calendar;
 import java.util.List;
 
+import org.dussan.vaadin.dcharts.base.elements.XYaxis;
 import org.dussan.vaadin.dcharts.data.DataSeries;
+import org.dussan.vaadin.dcharts.metadata.XYaxes;
+import org.dussan.vaadin.dcharts.metadata.renderers.AxisRenderers;
+import org.dussan.vaadin.dcharts.metadata.renderers.LabelRenderers;
 import org.dussan.vaadin.dcharts.metadata.renderers.SeriesRenderers;
+import org.dussan.vaadin.dcharts.options.Axes;
+import org.dussan.vaadin.dcharts.options.AxesDefaults;
 import org.dussan.vaadin.dcharts.options.Legend;
 import org.dussan.vaadin.dcharts.options.Options;
 import org.dussan.vaadin.dcharts.options.SeriesDefaults;
@@ -14,14 +20,18 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.vaadin.spring.navigator.VaadinView;
 
+import br.com.matheusbodo.rspt.entity.GuitarcadePracticeLog;
 import br.com.matheusbodo.rspt.entity.User;
 import br.com.matheusbodo.rspt.entity.enums.GuitarcadeGame;
+import br.com.matheusbodo.rspt.entity.enums.GuitarcadeGameLevel;
 import br.com.matheusbodo.rspt.entity.enums.Role;
 import br.com.matheusbodo.rspt.layout.GuitarcadeStatisticsLayout;
 import br.com.matheusbodo.rspt.repository.GuitarcadePracticeLogRepository;
 import br.com.matheusbodo.rspt.security.SecuredView;
 import br.com.matheusbodo.rspt.service.UserService;
 
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.VerticalLayout;
 
@@ -43,6 +53,42 @@ public class GuitarcadeStatisticsView extends VerticalLayout implements SecuredV
 	public GuitarcadeStatisticsView() {
 		layout = new GuitarcadeStatisticsLayout();
 		addComponent(layout);
+		
+		DataSeries dataSeries = new DataSeries();
+		dataSeries.newSeries();
+		dataSeries.add(0, 0);
+		dataSeries.add(1, 0);
+		layout.getChartScoreEvolution().setDataSeries(dataSeries).show();
+		
+		layout.getComboGame().addValueChangeListener(new ValueChangeListener() {
+			private static final long serialVersionUID = -3672849431308112062L;
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				GuitarcadeGame game = (GuitarcadeGame) event.getProperty().getValue();
+				List<GuitarcadeGameLevel> levels = GuitarcadeGameLevel.findByGame(game);
+				if (levels.isEmpty()) {
+					createScoreEvolutionChart(game, null);
+					layout.getComboLevel().setVisible(false);
+				} else {
+					layout.getComboLevel().removeAllItems();
+					for (GuitarcadeGameLevel level : levels) {
+						layout.getComboLevel().addItem(level);
+						layout.getComboLevel().setItemCaption(level, level.getCaption());
+					}
+					layout.getComboLevel().setVisible(true);
+				}
+			}
+		});
+		
+		layout.getComboLevel().addValueChangeListener(new ValueChangeListener() {
+			private static final long serialVersionUID = -3672849431308112062L;
+			@Override
+			public void valueChange(ValueChangeEvent event) {
+				GuitarcadeGame game = (GuitarcadeGame) layout.getComboGame().getValue();
+				GuitarcadeGameLevel level = (GuitarcadeGameLevel) event.getProperty().getValue();
+				createScoreEvolutionChart(game, level);
+			}
+		});
 	}
 
 	@Override
@@ -91,6 +137,42 @@ public class GuitarcadeStatisticsView extends VerticalLayout implements SecuredV
 		Options options = new Options().setSeriesDefaults(seriesDefaults).setLegend(legend);
 		
 		layout.getChartGamesPlayed().setOptions(options).setDataSeries(dataSeries).show();
+	}
+	
+	private void createScoreEvolutionChart(GuitarcadeGame game, GuitarcadeGameLevel level) {
+		List<GuitarcadePracticeLog> logs = null;  
+		if (level == null) {
+			logs = guitarcadePracticeLogRepository.findByGameOrderByPracticeDate(game);
+		} else {
+			logs = guitarcadePracticeLogRepository.findByGameAndGameLevelOrderByPracticeDate(game, level);
+		}
+		
+		AxesDefaults axesDefaults = new AxesDefaults().setLabelRenderer(LabelRenderers.CANVAS);
+
+		Axes axes = new Axes()
+		.addAxis(new XYaxis(XYaxes.X).setLabel("Session").setPad(0).setRenderer(AxisRenderers.CATEGORY))
+		.addAxis(new XYaxis(XYaxes.Y).setLabel("Score").setPad(0));
+
+		Options options = new Options()
+		.setAxesDefaults(axesDefaults)
+		.setAxes(axes);
+		
+		if (logs == null || logs.isEmpty()) {
+			layout.getChartScoreEvolution().hide();
+			DataSeries dataSeries = new DataSeries();
+			dataSeries.newSeries();
+			dataSeries.add(0, 0);
+			dataSeries.add(1, 0);
+			layout.getChartScoreEvolution().setOptions(options).setDataSeries(dataSeries).show();
+		} else {
+			DataSeries dataSeries = new DataSeries();
+			dataSeries.newSeries();
+			for (int i = 0; i < logs.size(); i++) {
+				GuitarcadePracticeLog log = logs.get(i);
+				dataSeries.add(i+1, log.getScore());
+			}
+			layout.getChartScoreEvolution().setOptions(options).setDataSeries(dataSeries).show();
+		}
 	}
 
 }

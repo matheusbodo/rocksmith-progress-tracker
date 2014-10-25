@@ -56,7 +56,7 @@ public class LoginUI extends UI implements ClickListener {
         layout.addStyleName("login-background");
         
         Label labelTitle = new Label();
-        labelTitle.setValue("Rocksmith Practice Track");
+        labelTitle.setValue("Rocksmith Practice Tracker");
         labelTitle.addStyleName(ValoTheme.LABEL_HUGE);
         layout.addComponent(labelTitle);
         layout.setComponentAlignment(labelTitle, Alignment.MIDDLE_CENTER);
