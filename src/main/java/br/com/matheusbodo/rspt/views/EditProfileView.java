@@ -46,12 +46,6 @@ public class EditProfileView extends VerticalLayout implements SecuredView {
 	public EditProfileView() {
 		layout = new EditProfileLayout();
 		addComponent(layout);
-	}
-
-	@Override
-	public void enter(ViewChangeEvent event) {
-		User user = userService.findLoggedUser();
-		layout.getLblUser().setValue(user.getEmail());
 		
 		layout.getBtnChangePassword().addClickListener(new ClickListener() {
 			private static final long serialVersionUID = 8467579485305420641L;
@@ -93,6 +87,12 @@ public class EditProfileView extends VerticalLayout implements SecuredView {
 				});
 			}
 		});
+	}
+
+	@Override
+	public void enter(ViewChangeEvent event) {
+		User user = userService.findLoggedUser();
+		layout.getLblUser().setValue(user.getEmail());
 	}
 
 	@Override
@@ -177,11 +177,13 @@ public class EditProfileView extends VerticalLayout implements SecuredView {
 		layout.setWidth("300px");
 		
 		Label label = new Label();
+		label.setWidth("100%");
 		label.setValue(message);
 		layout.addComponent(label);
 		layout.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
 		
 		Button btnConfirm = new Button();
+		btnConfirm.setCaption("Yes");
 		btnConfirm.addStyleName(ValoTheme.BUTTON_DANGER);
 		btnConfirm.addClickListener(confirmClickListener);
 		btnConfirm.addClickListener(new ClickListener() {
