@@ -17,6 +17,7 @@ import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Page;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -173,11 +174,12 @@ public class EditProfileView extends VerticalLayout implements SecuredView {
 		
 		VerticalLayout layout = new VerticalLayout();
 		confirmActionModal.setContent(layout);
-		layout.setWidthUndefined();
+		layout.setWidth("300px");
 		
 		Label label = new Label();
 		label.setValue(message);
 		layout.addComponent(label);
+		layout.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
 		
 		Button btnConfirm = new Button();
 		btnConfirm.addStyleName(ValoTheme.BUTTON_DANGER);
@@ -189,6 +191,8 @@ public class EditProfileView extends VerticalLayout implements SecuredView {
 				confirmActionModal.close();
 			}
 		});
+		layout.addComponent(btnConfirm);
+		layout.setComponentAlignment(btnConfirm, Alignment.MIDDLE_CENTER);
 		
 		confirmActionModal.center();
 		UI.getCurrent().addWindow(confirmActionModal);
