@@ -5,7 +5,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.matheusbodo.rspt.entity.GuitarcadePracticeLog;
 import br.com.matheusbodo.rspt.entity.User;
+import br.com.matheusbodo.rspt.repository.GuitarcadePracticeLogRepository;
+import br.com.matheusbodo.rspt.repository.LearnSongPracticeLogRepository;
+import br.com.matheusbodo.rspt.repository.SongRepository;
 import br.com.matheusbodo.rspt.repository.UserRepository;
 import br.com.matheusbodo.rspt.service.UserService;
 import br.com.matheusbodo.rspt.util.SecurityUtil;
@@ -19,6 +23,15 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private GuitarcadePracticeLogRepository guitarcadePracticeLogRepository;
+	
+	@Autowired
+	private LearnSongPracticeLogRepository learnSongPracticeLogRepository;
+	
+	@Autowired
+	private SongRepository songRepository;
 	
 	@Override
 	public User findLoggedUser() {
@@ -37,6 +50,20 @@ public class UserServiceImpl implements UserService {
 		User user = findLoggedUser();
 		user.setPassword(passwordEncoder.encode(value));
 		userRepository.save(user);
+	}
+
+	@Override
+	public void resetData() {
+		User user = findLoggedUser();
+		guitarcadePracticeLogRepository.deleteByUser(user);
+		learnSongPracticeLogRepository.deleteByUser(user);
+		songRepository.deleteByUser(user);
+	}
+
+	@Override
+	public void deleteAccount() {
+		resetData();
+		userRepository.delete(findLoggedUser());
 	}
 	
 

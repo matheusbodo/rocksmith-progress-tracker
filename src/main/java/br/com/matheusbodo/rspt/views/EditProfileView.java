@@ -1,6 +1,7 @@
 package br.com.matheusbodo.rspt.views;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.vaadin.spring.UIScope;
 import org.vaadin.spring.navigator.VaadinView;
@@ -15,10 +16,12 @@ import com.vaadin.data.Validator;
 import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.Page;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.PasswordField;
@@ -55,7 +58,39 @@ public class EditProfileView extends VerticalLayout implements SecuredView {
 			public void buttonClick(ClickEvent event) {
 				showChangePasswordModal();
 			}
+		});
+		
+		layout.getBtnResetData().addClickListener(new ClickListener() {
+			private static final long serialVersionUID = -4280325017297738047L;
 
+			@Override
+			public void buttonClick(ClickEvent event) {
+				showConfirmActionModal("Reset data", "Are you sure you want to delete all data?", new ClickListener() {
+					private static final long serialVersionUID = -8031028508897549752L;
+					@Override
+					public void buttonClick(ClickEvent event) {
+						userService.resetData();
+						Notification.show("All data erased.", Type.HUMANIZED_MESSAGE);
+					}
+				});
+			}
+		});
+		
+		layout.getBtnDeleteAccount().addClickListener(new ClickListener() {
+			private static final long serialVersionUID = 700374659879620310L;
+			@Override
+			public void buttonClick(ClickEvent event) {
+				showConfirmActionModal("Delete account", "Are you sure you want to delete your account?", new ClickListener() {
+					private static final long serialVersionUID = -3341002888772155513L;
+					@Override
+					public void buttonClick(ClickEvent event) {
+						userService.deleteAccount();
+						SecurityContextHolder.getContext().setAuthentication(null);
+						Page.getCurrent().setLocation("/");
+						Notification.show("Account deleted.", Type.HUMANIZED_MESSAGE);
+					}
+				});
+			}
 		});
 	}
 
@@ -129,6 +164,31 @@ public class EditProfileView extends VerticalLayout implements SecuredView {
 		});
 		
 		UI.getCurrent().addWindow(changePasswordModal);
+	}
+	
+	public void showConfirmActionModal(String title, String message, ClickListener confirmClickListener) {
+		final Window confirmActionModal = new Window(title);
+		confirmActionModal.setClosable(true);
+		confirmActionModal.setModal(true);
+		
+		VerticalLayout layout = new VerticalLayout();
+		
+		Label label = new Label();
+		label.setValue(message);
+		layout.addComponent(label);
+		
+		Button btnConfirm = new Button();
+		btnConfirm.addStyleName(ValoTheme.BUTTON_DANGER);
+		btnConfirm.addClickListener(confirmClickListener);
+		btnConfirm.addClickListener(new ClickListener() {
+			private static final long serialVersionUID = 3551396070270816055L;
+			@Override
+			public void buttonClick(ClickEvent event) {
+				confirmActionModal.close();
+			}
+		});
+		
+		confirmActionModal.center();
 	}
 
 }

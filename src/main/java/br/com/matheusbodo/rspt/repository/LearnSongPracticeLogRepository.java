@@ -22,4 +22,6 @@ public interface LearnSongPracticeLogRepository extends PagingAndSortingReposito
 	@Query("SELECT l.song.id, SUM(l.minutes), MAX(l.completed), MAX(l.practiceDate) from LearnSongPracticeLog l WHERE l.path = ?1 AND l.user = ?2 AND l.practiceDate >= ?3 AND l.practiceDate <= ?4 GROUP BY l.song.id")
 	List<Object[]> findSummaryByPathAndUserAndPeriod(GamePath path, User user, Calendar dateFrom, Calendar dateTo);
 
+	void deleteByUser(User user);
+
 }

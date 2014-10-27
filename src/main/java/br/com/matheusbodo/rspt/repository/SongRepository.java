@@ -13,4 +13,6 @@ public interface SongRepository extends PagingAndSortingRepository<Song, Long> {
 
 	List<Song> findByUser(User findLoggedUser);
 
+	void deleteByUser(User user);
+
 }

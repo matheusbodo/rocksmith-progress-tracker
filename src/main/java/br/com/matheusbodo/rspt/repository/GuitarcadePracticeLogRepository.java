@@ -27,4 +27,6 @@ public interface GuitarcadePracticeLogRepository extends PagingAndSortingReposit
 	
 	@Query("SELECT g from GuitarcadePracticeLog g WHERE g.game = ?1 ORDER BY g.practiceDate")
 	List<GuitarcadePracticeLog> findByGameOrderByPracticeDate(GuitarcadeGame game);
+
+	void deleteByUser(User user);
 }

@@ -9,4 +9,8 @@ public interface UserService {
 	boolean isValidCurrentPassword(String value);
 
 	void changeCurrentPassword(String value);
+
+	void resetData();
+
+	void deleteAccount();
 }
