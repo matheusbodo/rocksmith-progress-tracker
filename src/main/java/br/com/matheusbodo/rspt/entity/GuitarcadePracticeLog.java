@@ -28,7 +28,7 @@ public class GuitarcadePracticeLog extends PracticeLog {
 
 	@NotNull(message="Score must be informed.")
 	@Min(value=0, message="The score must be a positive number")
-	@Max(value=999999999, message="The minutes practiced cannot be greater than 999999999")
+	@Max(value=999999999, message="The score cannot be greater than 999999999")
 	@Column(nullable=false)
 	@PropertyId(value="score")
 	private Long score;
