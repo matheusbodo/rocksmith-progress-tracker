@@ -14,6 +14,7 @@ import org.vaadin.spring.VaadinUI;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.Widgetset;
+import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -96,6 +97,8 @@ public class LoginUI extends UI implements ClickListener {
     protected void init(VaadinRequest request) {
         setContent(layout);
         getPage().setTitle("Rocksmith Progress Tracker");
+        getPage().getJavaScript().execute("document.head.innerHTML += '<meta name=\"viewport\" content=\"initial-scale = 1.0,maximum-scale = 1.0\">'");
+        Responsive.makeResponsive(this);
     }
 
     @Override

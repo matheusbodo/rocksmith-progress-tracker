@@ -13,4 +13,8 @@ public interface UserService {
 	void resetData();
 
 	void deleteAccount();
+
+	User findOne(Long id);
+
+	void changeUserPassword(User user, String value);
 }

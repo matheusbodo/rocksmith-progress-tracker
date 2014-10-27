@@ -5,7 +5,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.matheusbodo.rspt.entity.GuitarcadePracticeLog;
 import br.com.matheusbodo.rspt.entity.User;
 import br.com.matheusbodo.rspt.repository.GuitarcadePracticeLogRepository;
 import br.com.matheusbodo.rspt.repository.LearnSongPracticeLogRepository;
@@ -48,8 +47,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void changeCurrentPassword(String value) {
 		User user = findLoggedUser();
-		user.setPassword(passwordEncoder.encode(value));
-		userRepository.save(user);
+		changeUserPassword(user, value);
 	}
 
 	@Override
@@ -64,6 +62,17 @@ public class UserServiceImpl implements UserService {
 	public void deleteAccount() {
 		resetData();
 		userRepository.delete(findLoggedUser());
+	}
+
+	@Override
+	public User findOne(Long id) {
+		return userRepository.findOne(id);
+	}
+
+	@Override
+	public void changeUserPassword(User user, String value) {
+		user.setPassword(passwordEncoder.encode(value));
+		userRepository.save(user);
 	}
 	
 

@@ -86,7 +86,6 @@ public class RSPTUI extends UI {
 		navigator.addProvider(viewProvider);
 		navigator.setErrorView(new ErrorView());
 		navigator.addViewChangeListener(viewChangeListener);
-		navigator.navigateTo("");
 	}
 	
 	public static RSPTUI getCurrent() {
@@ -110,7 +109,7 @@ public class RSPTUI extends UI {
 	
 	private CssLayout buildMenu() {
         // Add items
-        menuItems.put("", "Dashboard");
+        menuItems.put("", "Home");
         menuItems.put("manageSongs", "Songs");
         menuItems.put("practiceLearnSong", "Learn a Song");
         menuItems.put("practiceGuitarcade", "Guitarcade");
@@ -120,6 +119,7 @@ public class RSPTUI extends UI {
         menuItems.put("statisticsGuitarcade", "Guitarcade");
 //        menuItems.put("statisticsScoreAttack", "Score Attack");
 //        menuItems.put("statisticsSessionMode", "Session Mode");
+        menuItems.put("manageUsers", "Users");
 
         HorizontalLayout top = new HorizontalLayout();
         top.setWidth("100%");
@@ -191,6 +191,12 @@ public class RSPTUI extends UI {
                 menuItemsLayout.addComponent(label);
             } else if (item.getKey().equals("statisticsLearnSong")) {
             	label = new Label("Statistics", ContentMode.HTML);
+                label.setPrimaryStyleName("valo-menu-subtitle");
+                label.addStyleName("h4");
+                label.setSizeUndefined();
+                menuItemsLayout.addComponent(label);
+            } else if (item.getKey().equals("manageUsers")) {
+            	label = new Label("Admin", ContentMode.HTML);
                 label.setPrimaryStyleName("valo-menu-subtitle");
                 label.addStyleName("h4");
                 label.setSizeUndefined();

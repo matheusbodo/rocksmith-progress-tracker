@@ -18,12 +18,14 @@ public class RSPTLayout extends HorizontalLayout {
         setSizeFull();
 
         menuArea.setPrimaryStyleName("valo-menu");
+        menuArea.setWidth("227px");
 
         contentArea.setPrimaryStyleName("valo-content");
         contentArea.addStyleName("v-scrollable");
         contentArea.setSizeFull();
 
-        addComponents(menuArea, contentArea);
+        addComponent(menuArea);
+        addComponent(contentArea);
         setExpandRatio(contentArea, 1);
     }
 

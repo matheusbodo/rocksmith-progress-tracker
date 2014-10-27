@@ -13,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import br.com.matheusbodo.rspt.entity.User;
-import br.com.matheusbodo.rspt.entity.UserRole;
 import br.com.matheusbodo.rspt.entity.enums.Role;
 import br.com.matheusbodo.rspt.repository.UserRepository;
 
@@ -31,12 +30,10 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService{
 			throw new UsernameNotFoundException("User not found");
 		}
 		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority(Role.USER.name()));
-		for (UserRole userRole : user.getRoles()) {
-			if (!Role.USER.equals(userRole.getRole())) {
-				authorities.add(new SimpleGrantedAuthority(userRole.getRole().name()));
-			}
+		if (user.getRole() != null) {
+			authorities.add(new SimpleGrantedAuthority(user.getRole().name()));
 		}
+		authorities.add(new SimpleGrantedAuthority(Role.USER.name()));
 		return new org.springframework.security.core.userdetails.User(username, user.getPassword(), authorities);
 	}
 
