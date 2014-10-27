@@ -172,6 +172,8 @@ public class EditProfileView extends VerticalLayout implements SecuredView {
 		confirmActionModal.setModal(true);
 		
 		VerticalLayout layout = new VerticalLayout();
+		confirmActionModal.setContent(layout);
+		layout.setWidthUndefined();
 		
 		Label label = new Label();
 		label.setValue(message);
