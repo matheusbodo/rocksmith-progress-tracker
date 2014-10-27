@@ -129,7 +129,8 @@ public class LearnSongStatisticsView extends VerticalLayout implements SecuredVi
 		GamePath path = (GamePath) layout.getComboSummaryPath().getValue();
 		List<Object[]> summaryList = learnSongPracticeLogRepository.findSummaryByPathAndUserAndPeriod(path, user, dateFrom, dateTo);
 		for (Object[] summary : summaryList) {
-			Object song= summary[0];
+			Long songID = (Long) summary[0];
+			Song song = songRepository.findByIdAndUser(songID, user);
 			layout.getTbSummary().getItem(song).getItemProperty("minutesPlayed").setValue((Long) summary[1]);
 			layout.getTbSummary().getItem(song).getItemProperty("completed").setValue((BigDecimal) summary[2]);
 			layout.getTbSummary().getItem(song).getItemProperty("lastPlayed").setValue(((Calendar) summary[3]).getTime());

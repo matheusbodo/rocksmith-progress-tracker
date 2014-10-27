@@ -19,7 +19,7 @@ public interface LearnSongPracticeLogRepository extends PagingAndSortingReposito
 	@Query("SELECT l from LearnSongPracticeLog l WHERE l.song = ?1 AND l.path = ?2 ORDER BY l.practiceDate")
 	List<LearnSongPracticeLog> findBySongAndPathOrderByPracticeDate(Song song, GamePath path);
 
-	@Query("SELECT l.song, SUM(l.minutes), MAX(l.completed), MAX(l.practiceDate) from LearnSongPracticeLog l WHERE l.path = ?1 AND l.user = ?2 AND l.practiceDate >= ?3 AND l.practiceDate <= ?4 GROUP BY l.song")
+	@Query("SELECT l.song.id, SUM(l.minutes), MAX(l.completed), MAX(l.practiceDate) from LearnSongPracticeLog l WHERE l.path = ?1 AND l.user = ?2 AND l.practiceDate >= ?3 AND l.practiceDate <= ?4 GROUP BY l.song.id")
 	List<Object[]> findSummaryByPathAndUserAndPeriod(GamePath path, User user, Calendar dateFrom, Calendar dateTo);
 
 }
