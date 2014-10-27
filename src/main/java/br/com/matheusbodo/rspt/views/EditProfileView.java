@@ -189,6 +189,7 @@ public class EditProfileView extends VerticalLayout implements SecuredView {
 		});
 		
 		confirmActionModal.center();
+		UI.getCurrent().addWindow(confirmActionModal);
 	}
 
 }
