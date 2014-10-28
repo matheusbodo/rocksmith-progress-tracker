@@ -37,8 +37,8 @@ public class User implements Serializable {
 	@Column
 	private String password;
 
-	@Column
 	@NotNull
+	@Column(name="user_role")
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	

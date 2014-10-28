@@ -25,8 +25,8 @@ public class RSPTViewChangeListener implements ViewChangeListener {
 					return true;
 				}
 			}
-			event.getNavigator().navigateTo("acessoNegado");
-			trackPageview("acessoNegado");
+			event.getNavigator().navigateTo("accessDenied");
+			trackPageview("accessDenied");
 			return false;
 		} else {
 			trackPageview(event.getViewName());

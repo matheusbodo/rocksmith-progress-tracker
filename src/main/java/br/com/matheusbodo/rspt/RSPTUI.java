@@ -145,7 +145,7 @@ public class RSPTUI extends UI {
         showMenu.setIcon(FontAwesome.LIST);
         menu.addComponent(showMenu);
 
-        Label title = new Label("<h3>Rocksmith Progress Tracker</h3>", ContentMode.HTML);
+        Label title = new Label("<h3>Rocksmith Progress Tracker</h3><br/><center>Version 0.1</center>", ContentMode.HTML);
         title.setSizeUndefined();
         top.addComponent(title);
         top.setExpandRatio(title, 1);
