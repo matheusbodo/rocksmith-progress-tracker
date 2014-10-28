@@ -10,8 +10,10 @@ import org.vaadin.googleanalytics.tracking.GoogleAnalyticsTracker;
 import org.vaadin.spring.VaadinUI;
 import org.vaadin.spring.navigator.SpringViewProvider;
 
+import br.com.matheusbodo.rspt.entity.enums.Role;
 import br.com.matheusbodo.rspt.layout.RSPTLayout;
 import br.com.matheusbodo.rspt.security.RSPTViewChangeListener;
+import br.com.matheusbodo.rspt.util.SecurityUtil;
 
 import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
@@ -119,7 +121,9 @@ public class RSPTUI extends UI {
         menuItems.put("statisticsGuitarcade", "Guitarcade");
 //        menuItems.put("statisticsScoreAttack", "Score Attack");
 //        menuItems.put("statisticsSessionMode", "Session Mode");
-        menuItems.put("manageUsers", "Users");
+        if (SecurityUtil.hasRole(Role.ADMIN)) {
+        	menuItems.put("manageUsers", "Users");
+        }
 
         HorizontalLayout top = new HorizontalLayout();
         top.setWidth("100%");
